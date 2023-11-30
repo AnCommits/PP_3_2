@@ -57,11 +57,11 @@ public class UserUtils {
         user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
     }
 
-    public static List<Role> allRolesWithoutAdmin() {
-        return Arrays.stream(RolesType.values())
-                .filter(r -> !r.name().equals("ADMIN"))
-                .map(r -> new Role(r.name())).toList();
-    }
+//    public static List<Role> allRolesWithoutAdmin() {
+//        return Arrays.stream(RolesType.values())
+//                .filter(r -> !r.name().equals("ADMIN"))
+//                .map(r -> new Role(r.name())).toList();
+//    }
 
     /**
      * Method should be called after firstRole and otherRoles are set.

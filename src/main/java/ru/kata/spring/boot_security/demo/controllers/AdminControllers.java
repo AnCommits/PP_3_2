@@ -34,28 +34,28 @@ public class AdminControllers {
         return "admin/admin";
     }
 
-    @GetMapping("/show-edit-user")
-    public String showEditUser(@RequestParam long id, ModelMap model) {
-        User user = userService.getUserById(id);
-        UserUtils.setAdminField(user);
-        pw = user.getPassword();
-        user.setPassword("");
-        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
-        model.addAttribute("user", user);
-        model.addAttribute("title", "Страница администратора");
-        model.addAttribute("title2", "Редактирование пользователя");
-        return "admin/admin-edit";
-    }
+//    @GetMapping("/show-edit-user")
+//    public String showEditUser(@RequestParam long id, ModelMap model) {
+//        User user = userService.getUserById(id);
+//        UserUtils.setAdminField(user);
+//        pw = user.getPassword();
+//        user.setPassword("");
+//        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
+//        model.addAttribute("user", user);
+//        model.addAttribute("title", "Страница администратора");
+//        model.addAttribute("title2", "Редактирование пользователя");
+//        return "admin/admin-edit";
+//    }
 
-    @GetMapping("/show-repeat-edit-user")
-    public String showRepeatEditUser(ModelMap model) {
-        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
-        model.addAttribute("user", userRepeatEdit);
-        model.addAttribute("message", message.toString());
-        model.addAttribute("title", "Страница администратора");
-        model.addAttribute("title2", "Редактирование пользователя");
-        return "admin/admin-edit";
-    }
+//    @GetMapping("/show-repeat-edit-user")
+//    public String showRepeatEditUser(ModelMap model) {
+//        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
+//        model.addAttribute("user", userRepeatEdit);
+//        model.addAttribute("message", message.toString());
+//        model.addAttribute("title", "Страница администратора");
+//        model.addAttribute("title2", "Редактирование пользователя");
+//        return "admin/admin-edit";
+//    }
 
     @PutMapping("/edit-user")
     public String updateUser(@ModelAttribute("user") User user) {
@@ -81,14 +81,14 @@ public class AdminControllers {
         return "redirect:/admin";
     }
 
-    @GetMapping("/show-add-user")
-    public String showAddUser(ModelMap model) {
-        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
-        model.addAttribute("user", new User());
-        model.addAttribute("title", "Страница администратора");
-        model.addAttribute("title2", "Новый пользователь");
-        return "admin/admin-edit";
-    }
+//    @GetMapping("/show-add-user")
+//    public String showAddUser(ModelMap model) {
+//        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
+//        model.addAttribute("user", new User());
+//        model.addAttribute("title", "Страница администратора");
+//        model.addAttribute("title2", "Новый пользователь");
+//        return "admin/admin-edit";
+//    }
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute("user") User user) {

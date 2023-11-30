@@ -42,8 +42,8 @@
                             <details>
                                 <summary th:text="${user.firstRole}"></summary>
                                 <span th:each="line : ${user.otherRoles}">
-                        <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
-                    </span>
+                                    <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
+                                </span>
                             </details>
                         </td>
                         <td th:style="${st} + ' text-align: center'"
