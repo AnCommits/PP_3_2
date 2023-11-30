@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Вход</title>
+</head>
+<body>
+<div style="padding-top: 20px; text-align: center">
+    <form th:action="login" method="post">
+        <p>Вход</p>
+        <div th:if="${param.error}" style="color: red">
+            <div>
+                Пользователь с такой комбинацией имя-пароль
+            </div>
+            <div>
+                не найден либо заблокирован
+            </div>
+        </div>
+        <p>
+            <label for="username">е-мэйл:</label>
+            <input type="text" id="username" name="username" placeholder="email" size="25" required autofocus>
+        </p>
+        <p>
+            <label for="password">пароль:</label>
+            <input type="password" id="password" name="password" placeholder="Password" size="25" required>
+        </p>
+        <button type="submit" class="button">Войти</button>
+        <a class="button" href="/">На главную</a>
+    </form>
+    <p>Для тестирования:</p>
+    <pre>
+Должность       логин/пароль
+админ                1
+глава фирмы          s
+нач сборочного цеха  r
+нач отд сборки ТВ    k
+нач отд сборки тел   m
+нач ремонт отдела    p
+сборщик ТВ           g
+сборщик ТВ           d
+сборщик телефонов    e
+сборщик телефонов    z
+ремонтник            b
+ремонтник            v
+ученик               a
+</pre>
+</div>
+</body>
+</html>
