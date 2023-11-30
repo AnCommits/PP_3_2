@@ -54,7 +54,7 @@ public class InitDataBase {
         roles.add(new Role("ADMIN"));
         roles.add(new Role("USER"));
 
-        User user = new User(null, null, "",
+        User user = new User("Абрам", "Абрамов", "администратор",
                 "1", passwordEncoder.encode("1"),
                 null, roles, false);
         userService.saveUser(user);

@@ -54,11 +54,11 @@
                                   th:switch="${user.isLocked()}">
                                 <input th:case="true" type="checkbox" class="checkbox" onclick="submit()" checked>
                                 <span th:case="false">
-                            <span th:switch="${user.admin}">
-                                <input th:case="true" type="checkbox" disabled="disabled">
-                                <input th:case="false" type="checkbox" class="checkbox" onclick="submit()">
-                            </span>
-                    </span>
+                                    <span th:switch="${user.admin}">
+                                        <input th:case="true" type="checkbox" disabled="disabled">
+                                        <input th:case="false" type="checkbox" class="checkbox" onclick="submit()">
+                                    </span>
+                                </span>
                             </form>
                         </td>
                         <td style="border: 0; padding: 0 2px; text-align: center">

@@ -40,7 +40,9 @@ public class User implements UserDetails {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Calendar birthDate;
 
-    // for view
+    @Transient
+    int age;
+
     @Transient
     private String birthDateAsString;
 
@@ -48,7 +50,6 @@ public class User implements UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;
 
-    // for view
     @Transient
     private String recordDateTimeAsString;
 
@@ -58,17 +59,14 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    // for view
     @Transient
     private String firstRole;
 
-    // for view
     @Transient
     private List<String> otherRoles;
 
     private boolean locked;
 
-    // for view
     @Transient
     private boolean admin;
 
