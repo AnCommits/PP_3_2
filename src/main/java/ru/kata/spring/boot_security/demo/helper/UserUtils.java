@@ -1,11 +1,8 @@
 package ru.kata.spring.boot_security.demo.helper;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.constants.RolesType;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -57,11 +54,17 @@ public class UserUtils {
         user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
     }
 
-//    public static List<Role> allRolesWithoutAdmin() {
-//        return Arrays.stream(RolesType.values())
-//                .filter(r -> !r.name().equals("ADMIN"))
-//                .map(r -> new Role(r.name())).toList();
-//    }
+    public static List<Role> allRoles() {
+        return Arrays.stream(RolesType.values()).map(r -> new Role(r.name())).toList();
+    }
+
+    // todo delete
+
+    public static List<Role> allRolesWithoutAdmin() {
+        return Arrays.stream(RolesType.values())
+                .filter(r -> !r.name().equals("ADMIN"))
+                .map(r -> new Role(r.name())).toList();
+    }
 
     /**
      * Method should be called after firstRole and otherRoles are set.

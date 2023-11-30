@@ -41,13 +41,61 @@
             <h1>Панель администратора</h1>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/test">Список сотрудников</a>
+                    <a class="nav-link" href="/admin">Список сотрудников</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active disabled" href="#">Новый сотрудник</a>
                 </li>
             </ul>
-            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada;">
+            <div style="border-bottom: 1px solid #dadada">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" style="font-size: large; color: black; width: 100%">
+                        <a class="nav-link active disabled" href="#"
+                           style="float: left; font-weight: bolder; width: 100%; background-color: #f8f9fa">
+                            Зарегистрировать сотрудника</a>
+                    </li>
+                </ul>
+            </div>
+            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
+                <div style="width: 300px; margin: auto">
+                    <form action="/admin/save-user" th:object="${user}" method="post">
+                        <div style="text-align: center; font-weight: bold; font-size: smaller">
+                            <div class="form-group input-group-sm">
+                                <label for="firstNameInput" style="margin: 0">Имя</label>
+                                <input type="text" class="form-control" id="firstNameInput" placeholder="Имя"
+                                       required th:field="*{firstName}">
+                            </div>
+                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
+                                <label for="lastNameInput" style="margin: 0">Фамилия</label>
+                                <input type="text" class="form-control" id="lastNameInput" placeholder="Фамилия"
+                                       required th:field="*{lastName}">
+                            </div>
+                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
+                                <label for="birthDate" style="margin: 0">Дата рождения</label>
+                                <input type="date" class="form-control" id="birthDate" th:field="*{birthDate}">
+                            </div>
+                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
+                                <label for="email" style="margin: 0">Электронная почта</label>
+                                <input type="text" class="form-control" id="email" placeholder="Электронная почта"
+                                       required th:field="*{email}">
+                            </div>
+                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
+                                <label for="password" style="margin: 0">Пароль</label>
+                                <input type="password" class="form-control" id="password" placeholder="Пароль"
+                                       required th:field="*{password}">
+                            </div>
+                            <div class="form-group" style="text-align: center; font-weight: bold">
+                                <label for="roles" style="margin: 0">Роли</label>
+                                <select class="form-control" id="roles" name="roles" multiple size="3">
+                                    <span th:each="role : ${aRoles}">
+                                    <option th:value="${role.name}" th:text="${role.name}" th:field="*{roles}"></option>
+                                    </span>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Зарагистрировать</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

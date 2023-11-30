@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,12 +28,31 @@ public class AdminControllers {
     }
 
     @GetMapping
-    public String showAllUsers(ModelMap model) {
+    public String showUsers(ModelMap model, Authentication authentication) {
         List<User> users = userService.getAllUsers();
         UserUtils.setViewFields(users);
         model.addAttribute("users", users);
-        return "admin/admin";
+        long myId = ((User) authentication.getPrincipal()).getId();
+        User me = userService.getUserById(myId);
+        model.addAttribute("my_roles", UserUtils.getRolesLine(me));
+        model.addAttribute("my_email", me.getEmail());
+        return "admin/admin-test";
     }
+
+    @GetMapping("/new-user")
+    public String newUser(ModelMap model) {
+        model.addAttribute("aRoles", UserUtils.allRoles());
+        model.addAttribute("user", new User());
+        return "admin/new-user";
+    }
+
+//    @GetMapping
+//    public String showAllUsers(ModelMap model) {
+//        List<User> users = userService.getAllUsers();
+//        UserUtils.setViewFields(users);
+//        model.addAttribute("users", users);
+//        return "admin/admin";
+//    }
 
 //    @GetMapping("/show-edit-user")
 //    public String showEditUser(@RequestParam long id, ModelMap model) {
