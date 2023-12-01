@@ -19,14 +19,14 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body style="background-color: #e3f0ff">
+<body style="background-color: white">
 <div class="container-fluid">
-    <div th:replace="admin/fragments :: admin_header"></div>
+    <div th:replace="fragments :: header"></div>
 
     <div class="row">
         <div th:replace="admin/fragments :: admin_about_user_left_block"></div>
 
-        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa">
+        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
 
             <h1>Информация о пользователе</h1>
             <div style="border-bottom: 1px solid #dadada">
@@ -39,7 +39,8 @@
                 </ul>
             </div>
 
-            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada;">
+            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada"
+                 th:with="user = ${users.get(id - 1)}">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -52,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:with="user = ${users.get(id - 1)}">
+                    <tr>
                         <th style="font-weight: normal" th:text="${user.id}"></th>
                         <td th:text="${user.firstName}"></td>
                         <td th:text="${user.lastName}"></td>

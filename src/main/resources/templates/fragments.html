@@ -1,3 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<!-------------------------------------------------------------------------------------------->
+<div th:fragment="header" class="navbar navbar-fixed-top"
+     style="background-color: #343a40; margin-left: -15px; margin-right: -15px">
+    <div style="float: left; color: white; font-size: larger; padding: 2px 4px">
+        <b th:text="${my_email}"></b> with roles: <span th:text="${my_roles}"></span>
+    </div>
+    <a href="/logout" style="color: #969b9c">Logout</a>
+</div>
+<!-------------------------------------------------------------------------------------------->
+<table th:fragment="about_user" class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Емэйл</th>
+        <th>Роли</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th style="font-weight: normal" th:text="${user.id}"></th>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>
+        <td th:text="${user.email}"></td>
+        <td style="width: 220px">
+            <ul class="list-group" th:each="role : ${user.roles}">
+                <li class="list-group-item" style="padding: 0 4px "
+                    th:text="${role.name}"></li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-------------------------------------------------------------------------------------------->
+</body>
+</html>
+
 <ul th:fragment="links_to_lists_of_employees" sec:authorize="hasAuthority('MASTER')" style="margin: 24px; list-style-type: none">
     <li style="font-weight: bold">Фирма TVs&Phones</li>
     <li sec:authorize="hasAuthority('TV_MANUFACTURER') and hasAuthority('PHONE_MANUFACTURER') and hasAuthority('REPAIRER')" style="margin: 8px">
@@ -28,7 +71,7 @@
     </li>
 </ul>
 <!------------------------------------------------------------------------------------>
-<header th:fragment="users_header">
+<header_old th:fragment="users_header">
     <table style="width:100%; background-color: #e7fff3">
         <tbody>
         <tr>
@@ -43,7 +86,7 @@
         </tr>
         </tbody>
     </table>
-</header>
+</header_old>
 <!------------------------------------------------------------------------------------>
 <table th:fragment="users_list" style="margin: auto">
     <thead>

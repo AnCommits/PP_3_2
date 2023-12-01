@@ -4,8 +4,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.successHandlerChain.SuccessHandler;
-import ru.kata.spring.boot_security.demo.successHandlerChain.SuccessHandlerAdmin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,12 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        SuccessHandler successHandlerAdmin = new SuccessHandlerAdmin(roles);
-        httpServletResponse.sendRedirect(successHandlerAdmin.getUrl());
+        if (roles.contains("ADMIN")) {
+            httpServletResponse.sendRedirect("admin");
+        } else if (roles.contains("USER")) {
+            httpServletResponse.sendRedirect("user");
+        } else {
+            httpServletResponse.sendRedirect("/");
+        }
     }
 }

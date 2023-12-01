@@ -19,28 +19,15 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body style="background-color: #e3f0ff">
+<body style="background-color: white">
 <div class="container-fluid">
-    <div th:replace="user/fragments :: user_header"></div>
+    <div th:replace="fragments :: header"></div>
 
     <div class="row">
-        <div th:fragment="user_about_user_left_block" class="col-2" style="background-color: white; padding: 18px 0">
-            <nav class="nav nav-pills flex-column">
-                <a class="nav-link" href="/admin">Администратор</a>
-                <span th:each="user : ${users}">
-                    <span th:switch="${id} == ${user.id}">
-                        <a th:case="true" class="nav-link active disabled" href="#"
-                           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
-                        <a th:case="false" class="nav-link" th:href="@{/admin/about-user/{id} (id = ${user.id})}"
-                           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
-                    </span>
-                </span>
-            </nav>
-        </div>
+        <div th:replace="user/fragments :: user_about_user_left_block"></div>
 
-        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa">
-
-            <h1>Информация о пользователях</h1>
+        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
+            <h1>Страница пользователя</h1>
             <div style="border-bottom: 1px solid #dadada">
                 <ul class="nav nav-tabs">
                     <li class="nav-item" style="font-size: large; color: black; width: 100%">
@@ -51,34 +38,9 @@
                 </ul>
             </div>
 
-            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada;">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Возраст</th>
-                        <th>Емэйл</th>
-                        <th>Роли</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:with="user = ${users.get(id - 1)}">
-                        <th style="font-weight: normal" th:text="${user.id}"></th>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td style="width: 220px">
-                            <ul class="list-group" th:each="role : ${user.roles}">
-                                <li class="list-group-item" style="padding: 0 4px "
-                                    th:text="${role.name}"></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
+                <table th:replace="fragments :: about_user"></table>
+
             </div>
         </div>
     </div>

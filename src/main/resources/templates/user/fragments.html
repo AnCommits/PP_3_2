@@ -2,12 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <!-------------------------------------------------------------------------------------------->
-<div th:fragment="admin_header" class="navbar navbar-fixed-top"
-     style="background-color: #343a40; margin-left: -15px; margin-right: -15px">
-    <div style="float: left; color: white; font-size: larger; padding: 2px 4px">
-        <b th:text="${my_email}"></b> with roles: <span th:text="${my_roles}"></span>
-    </div>
-    <a href="/logout" style="color: #969b9c">Logout</a>
+<div th:fragment="user_about_user_left_block" class="col-2" style="background-color: white; padding: 18px 0">
+    <nav class="nav nav-pills flex-column">
+        <a class="nav-link active disabled" href="#"
+           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+    </nav>
 </div>
 <!-------------------------------------------------------------------------------------------->
 </body>

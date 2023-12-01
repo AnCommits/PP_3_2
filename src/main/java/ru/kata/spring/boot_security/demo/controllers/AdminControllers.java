@@ -36,8 +36,8 @@ public class AdminControllers {
         long myId = ((User) authentication.getPrincipal()).getId();
         adminCached = userService.getUserById(myId);
         model.addAttribute("users", usersCached);
-        model.addAttribute("admin_roles", UserUtils.getRolesLine(adminCached));
-        model.addAttribute("admin_email", adminCached.getEmail());
+        model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
+        model.addAttribute("my_email", adminCached.getEmail());
         return "admin/admin";
     }
 
@@ -45,8 +45,8 @@ public class AdminControllers {
     public String showUser(@PathVariable long id, ModelMap model) {
         model.addAttribute("users", usersCached);
         model.addAttribute("id", id);
-        model.addAttribute("admin_roles", UserUtils.getRolesLine(adminCached));
-        model.addAttribute("admin_email", adminCached.getEmail());
+        model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
+        model.addAttribute("my_email", adminCached.getEmail());
         return "admin/about-user";
     }
 
@@ -55,8 +55,8 @@ public class AdminControllers {
         model.addAttribute("users", usersCached);
         model.addAttribute("aRoles", UserUtils.allRoles());
         model.addAttribute("user", new User());
-        model.addAttribute("admin_roles", UserUtils.getRolesLine(adminCached));
-        model.addAttribute("admin_email", adminCached.getEmail());
+        model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
+        model.addAttribute("my_email", adminCached.getEmail());
         return "admin/new-user";
     }
 
