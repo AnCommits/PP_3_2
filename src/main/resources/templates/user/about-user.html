@@ -21,9 +21,11 @@
 </head>
 <body style="background-color: white">
 <div class="container-fluid">
+
     <div th:replace="fragments :: header"></div>
 
     <div class="row">
+
         <div th:replace="user/fragments :: user_about_user_left_block"></div>
 
         <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
@@ -40,8 +42,8 @@
 
             <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
                 <table th:replace="fragments :: about_user"></table>
-
             </div>
+
         </div>
     </div>
 </div>

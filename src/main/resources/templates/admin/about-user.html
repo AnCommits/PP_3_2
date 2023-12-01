@@ -39,35 +39,37 @@
                 </ul>
             </div>
 
-            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada"
-                 th:with="user = ${users.get(id - 1)}">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Возраст</th>
-                        <th>Емэйл</th>
-                        <th>Роли</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th style="font-weight: normal" th:text="${user.id}"></th>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td style="width: 220px">
-                            <ul class="list-group" th:each="role : ${user.roles}">
-                                <li class="list-group-item" style="padding: 0 4px "
-                                    th:text="${role.name}"></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
+
+                <table th:replace="fragments :: about_user"></table>
+
+<!--                <table class="table table-striped">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>ID</th>-->
+<!--                        <th>Имя</th>-->
+<!--                        <th>Фамилия</th>-->
+<!--                        <th>Возраст</th>-->
+<!--                        <th>Емэйл</th>-->
+<!--                        <th>Роли</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <th style="font-weight: normal" th:text="${user.id}"></th>-->
+<!--                        <td th:text="${user.firstName}"></td>-->
+<!--                        <td th:text="${user.lastName}"></td>-->
+<!--                        <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>-->
+<!--                        <td th:text="${user.email}"></td>-->
+<!--                        <td style="width: 220px">-->
+<!--                            <ul class="list-group" th:each="role : ${user.roles}">-->
+<!--                                <li class="list-group-item" style="padding: 0 4px "-->
+<!--                                    th:text="${role.name}"></li>-->
+<!--                            </ul>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
             </div>
         </div>
     </div>

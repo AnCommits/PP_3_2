@@ -44,7 +44,9 @@ public class AdminControllers {
     @GetMapping("/about-user/{id}")
     public String showUser(@PathVariable long id, ModelMap model) {
         model.addAttribute("users", usersCached);
-        model.addAttribute("id", id);
+        User user = userService.getUserById(id);
+        UserUtils.setUserAgeAndRoles(user);
+        model.addAttribute("user", user);
         model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
         model.addAttribute("my_email", adminCached.getEmail());
         return "admin/about-user";
