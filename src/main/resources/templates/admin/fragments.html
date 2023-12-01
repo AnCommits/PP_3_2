@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<!-------------------------------------------------------------------------------------------->
+<div th:fragment="header" class="navbar navbar-fixed-top"
+     style="background-color: #343a40; margin-left: -15px; margin-right: -15px">
+    <div style="float: left; color: white; font-size: larger; padding: 2px 4px">
+        <b th:text="${my_email}"></b> with roles: <span th:text="${my_roles}"></span>
+    </div>
+    <a href="/logout" style="color: #969b9c">Logout</a>
+</div>
+<!-------------------------------------------------------------------------------------------->
+<div th:fragment="admin_admin_left_block" class="col-2" style="background-color: white; padding: 18px 0">
+    <nav class="nav nav-pills flex-column">
+        <a class="nav-link active disabled" href="#">Администратор</a>
+        <span th:each="user : ${users}">
+                <a class="nav-link" th:href="@{/admin/about-user/{id} (id = ${user.id})}"
+                   th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+                </span>
+    </nav>
+</div>
+<!-------------------------------------------------------------------------------------------->
+<div th:fragment="admin_about_user_left_block" class="col-2" style="background-color: white; padding: 18px 0">
+    <nav class="nav nav-pills flex-column">
+        <a class="nav-link" href="/admin">Администратор</a>
+        <span th:each="user : ${users}">
+                    <span th:switch="${id} == ${user.id}">
+                        <a th:case="true" class="nav-link active disabled" href="#"
+                           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+                        <a th:case="false" class="nav-link" th:href="@{/admin/about-user/{id} (id = ${user.id})}"
+                           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+                    </span>
+                </span>
+    </nav>
+</div>
+<!-------------------------------------------------------------------------------------------->
+</body>
+</html>
