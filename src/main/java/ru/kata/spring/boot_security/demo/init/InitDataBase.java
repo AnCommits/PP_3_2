@@ -53,9 +53,8 @@ public class InitDataBase {
         Set<Role> roles = new LinkedHashSet<>();
         roles.add(new Role("ADMIN"));
         roles.add(new Role("USER"));
-
-        User user = new User("Абрам", "Абрамов", "администратор",
-                "1", passwordEncoder.encode("1"),
+        User user = new User("Абрам", "Абрамов","1",
+                passwordEncoder.encode("1"),
                 null, roles, false);
         userService.saveUser(user);
     }
@@ -63,9 +62,8 @@ public class InitDataBase {
     public void initTrainee() {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("USER"));
-
-        User user = new User("Антон", "Антонов", "ученик",
-                "a", passwordEncoder.encode("a"),
+        User user = new User("Антон", "Антонов", "a",
+                passwordEncoder.encode("a"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
@@ -74,11 +72,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Борис", "Борисов", "ремонтник",
-                "b", passwordEncoder.encode("b"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Борис", "Борисов", "b",
+                passwordEncoder.encode("b"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -86,11 +82,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Вася", "Васильев", "ремонтник",
-                "v", passwordEncoder.encode("v"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Вася", "Васильев", "v",
+                passwordEncoder.encode("v"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -98,11 +92,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Григорий", "Григорьев", "сборщик ТВ",
-                "g", passwordEncoder.encode("g"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Григорий", "Григорьев", "g",
+                passwordEncoder.encode("g"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -110,11 +102,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Дима", "Дмитриев", "сборщик ТВ",
-                "d", passwordEncoder.encode("d"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Дима", "Дмитриев", "d",
+                passwordEncoder.encode("d"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -122,11 +112,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Егор", "Егоров", "сборщик телефонов",
-                "e", passwordEncoder.encode("e"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Егор", "Егоров", "e",
+                passwordEncoder.encode("e"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -134,11 +122,9 @@ public class InitDataBase {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Зина", "Зиновьева", "сборщик телефонов",
-                "z", passwordEncoder.encode("z"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Зина", "Зиновьева", "z",
+                passwordEncoder.encode("z"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -147,11 +133,9 @@ public class InitDataBase {
         roles.add(new Role("MASTER"));
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Кирилл", "Кириллов", "нач отд сборки ТВ",
-                "k", passwordEncoder.encode("k"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Кирилл", "Кириллов", "k",
+                passwordEncoder.encode("k"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -160,11 +144,9 @@ public class InitDataBase {
         roles.add(new Role("MASTER"));
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Миша", "Михайлов", "нач отд сборки тел",
-                "m", passwordEncoder.encode("m"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Миша", "Михайлов", "m",
+                passwordEncoder.encode("m"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -173,11 +155,9 @@ public class InitDataBase {
         roles.add(new Role("MASTER"));
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Петр", "Петров", "нач ремонт отдела",
-                "p", passwordEncoder.encode("p"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Петр", "Петров", "p",
+                passwordEncoder.encode("p"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -187,11 +167,9 @@ public class InitDataBase {
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Рома", "Романов", "нач сборочного цеха",
-                "r", passwordEncoder.encode("r"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Рома", "Романов", "r",
+                passwordEncoder.encode("r"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -202,11 +180,9 @@ public class InitDataBase {
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
-
-        User user = new User("Степан", "Степанов", "глава фирмы",
-                "s", passwordEncoder.encode("s"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1),
-                roles, false);
+        User user = new User("Степан", "Степанов", "s",
+                passwordEncoder.encode("s"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 }

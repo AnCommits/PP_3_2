@@ -25,8 +25,6 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    private String position;
-
     /**
      * Used such as login
      */
@@ -43,16 +41,6 @@ public class User implements UserDetails {
     @Transient
     int age;
 
-    @Transient
-    private String birthDateAsString;
-
-    @Column(name = "record_date_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date recordDateTime;
-
-    @Transient
-    private String recordDateTimeAsString;
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -67,14 +55,17 @@ public class User implements UserDetails {
 
     private boolean locked;
 
+    private long parentAdminId;
+
+    // todo delete
+
     @Transient
     private boolean admin;
 
-    public User(String firstName, String lastName, String position, String email, String password,
+    public User(String firstName, String lastName, String email, String password,
                 Calendar birthDate, Set<Role> roles, boolean locked) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.position = position;
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
@@ -84,7 +75,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" + id + ' ' + firstName + ' ' + lastName + ' ' + position + ' ' + email + '}';
+        return "User{" + id + ' ' + firstName + ' ' + lastName + ' ' + email + '}';
     }
 
     @Override

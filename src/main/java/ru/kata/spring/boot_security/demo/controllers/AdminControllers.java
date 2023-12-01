@@ -18,6 +18,8 @@ public class AdminControllers {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
+    private List<User> usersCache;
+    private User meCache;
     private User userRepeatEdit;
     private String pw;
     private StringBuilder message;
@@ -29,20 +31,31 @@ public class AdminControllers {
 
     @GetMapping
     public String showUsers(ModelMap model, Authentication authentication) {
-        List<User> users = userService.getAllUsers();
-        UserUtils.setViewFields(users);
-        model.addAttribute("users", users);
+        usersCache = userService.getAllUsers();
+        UserUtils.setUsersAgeAndRoles(usersCache);
         long myId = ((User) authentication.getPrincipal()).getId();
-        User me = userService.getUserById(myId);
-        model.addAttribute("my_roles", UserUtils.getRolesLine(me));
-        model.addAttribute("my_email", me.getEmail());
-        return "admin/admin-test";
+        meCache = userService.getUserById(myId);
+        model.addAttribute("users", usersCache);
+        model.addAttribute("my_roles", UserUtils.getRolesLine(meCache));
+        model.addAttribute("my_email", meCache.getEmail());
+        return "admin/admin";
+    }
+
+    @GetMapping("/about-user/{id}")
+    public String showUser(@PathVariable long id, ModelMap model) {
+        model.addAttribute("users", usersCache);
+        model.addAttribute("id", id);
+        model.addAttribute("my_roles", UserUtils.getRolesLine(meCache));
+        model.addAttribute("my_email", meCache.getEmail());
+        return "admin/about-user";
     }
 
     @GetMapping("/new-user")
     public String newUser(ModelMap model) {
         model.addAttribute("aRoles", UserUtils.allRoles());
         model.addAttribute("user", new User());
+        model.addAttribute("my_roles", UserUtils.getRolesLine(meCache));
+        model.addAttribute("my_email", meCache.getEmail());
         return "admin/new-user";
     }
 

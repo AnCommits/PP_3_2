@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Admin page</title>
+</head>
+<body>
+<header th:replace="~{admin/admin-blocks :: admin_header}"></header>
+<main>
+    <table style="margin: auto">
+        <tbody>
+        <tr>
+            <td>
+                <h2 style="text-align: center">Список пользователей</h2>
+                <table style="margin: auto">
+                    <thead>
+                    <tr>
+                        <th style="border-bottom: 1px solid; padding: 4px">Имя</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Фамилия</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Должность</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Е-мэйл</th>
+                        <th style="border-bottom: 1px solid; padding: 4px; width: 216px">Роли</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Дата рождения</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Дата, время записи</th>
+                        <th style="border-bottom: 1px solid; padding: 4px">Заблокирован</th>
+                        <th colspan="2"><a class="button" th:href="@{admin/show-add-user}">Добавить пользователя</a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}"
+                        th:with="st = 'border-bottom: 1px solid; padding: 4px; color: ' +
+                                (${user.isLocked()} ? 'red' : 'black') +';'">
+                        <td th:style="${st}" th:text="${user.firstName}"></td>
+                        <td th:style="${st}" th:text="${user.lastName}"></td>
+                        <td th:style="${st}" th:text="${user.position}"></td>
+                        <td th:style="${st}" th:text="${user.email}"></td>
+                        <td th:style="${st}">
+                            <details>
+                                <summary th:text="${user.firstRole}"></summary>
+                                <span th:each="line : ${user.otherRoles}">
+                                    <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
+                                </span>
+                            </details>
+                        </td>
+                        <td th:style="${st} + ' text-align: center'"
+                            th:text="${user.birthDate != null} ? ${user.getBirthDateAsString()} : '-'"></td>
+                        <td th:style="${st} + ' text-align: center'" th:text="${user.recordDateTimeAsString}"></td>
+                        <td th:style="${st} + ' text-align: center'">
+                            <form th:action="'admin/change-ban/' + ${user.id}" th:method="put"
+                                  th:switch="${user.isLocked()}">
+                                <input th:case="true" type="checkbox" class="checkbox" onclick="submit()" checked>
+                                <span th:case="false">
+                                    <span th:switch="${user.admin}">
+                                        <input th:case="true" type="checkbox" disabled="disabled">
+                                        <input th:case="false" type="checkbox" class="checkbox" onclick="submit()">
+                                    </span>
+                                </span>
+                            </form>
+                        </td>
+                        <td style="border: 0; padding: 0 2px; text-align: center">
+                            <a th:attr="href='/admin/show-edit-user?id=' + ${user.id}" class="button">Редактировать</a>
+                        </td>
+                        <td style="border: 0; padding: 0 2px; text-align: center">
+                            <form th:action="@{/admin/remove-user/{id} (id = ${user.id})}" th:method="delete">
+                                <span th:switch="${user.admin}">
+                                    <button type="submit" disabled="disabled" th:case="true">Удалить</button>
+                                    <button type="submit" class="button" th:case="false">Удалить</button>
+                                </span>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><a class="button" th:href="@{admin/show-add-user}">Добавить пользователя</a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

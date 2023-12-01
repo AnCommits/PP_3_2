@@ -18,13 +18,13 @@ public class UserControllers {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String showUser(ModelMap model, Authentication authentication) {
-        User loggedInUser = (User) authentication.getPrincipal();
-        User updatedUser = userService.getUserById(loggedInUser.getId());
-        UserUtils.setDatesFields(updatedUser);
-        model.addAttribute("title", "Моя страница");
-        model.addAttribute("user", updatedUser);
-        return "user";
-    }
+//    @GetMapping
+//    public String showUser(ModelMap model, Authentication authentication) {
+//        User loggedInUser = (User) authentication.getPrincipal();
+//        User updatedUser = userService.getUserById(loggedInUser.getId());
+//        UserUtils.setDatesFields(updatedUser);
+//        model.addAttribute("title", "Моя страница");
+//        model.addAttribute("user", updatedUser);
+//        return "user";
+//    }
 }

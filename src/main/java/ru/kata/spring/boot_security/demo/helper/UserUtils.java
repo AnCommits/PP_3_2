@@ -4,7 +4,6 @@ import ru.kata.spring.boot_security.demo.constants.RolesType;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -14,23 +13,22 @@ import java.util.List;
 
 public class UserUtils {
 
-    public static void setViewFields(List<User> users) {
-        users.forEach(UserUtils::setAllAdditionalFields);
+    public static void setUsersAgeAndRoles(List<User> users) {
+        users.forEach(UserUtils::setUserAgeAndRoles);
+    }
+
+    public static void setUserAgeAndRoles(User user) {
+        setUserAge(user);
+        setUserFirstAndOtherRoles(user);
     }
 
     public static void setAllAdditionalFields(User user) {
-        setDatesFields(user);
-        setRoleFields(user);
+        setUserAge(user);
+        setUserFirstAndOtherRoles(user);
         setAdminField(user);
     }
 
-    public static void setDatesFields(User user) {
-        user.setBirthDateAsString(user.getBirthDate() != null
-                ? new SimpleDateFormat("yyyy-MM-dd").format(user.getBirthDate().getTime())
-                : "");
-        user.setRecordDateTimeAsString(user.getRecordDateTime() != null
-                ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(user.getRecordDateTime())
-                : "");
+    public static void setUserAge(User user) {
         int age;
         if (user.getBirthDate() == null) {
             age = -1;
@@ -41,7 +39,7 @@ public class UserUtils {
         user.setAge(age);
     }
 
-    public static void setRoleFields(User user) {
+    public static void setUserFirstAndOtherRoles(User user) {
         List<Role> roles = new ArrayList<>(user.getRoles());
         roles.sort(Role.roleComparator);
         user.setFirstRole(roles.isEmpty() ? "-" : roles.get(0).getName());
@@ -66,12 +64,14 @@ public class UserUtils {
                 .map(r -> new Role(r.name())).toList();
     }
 
-    /**
-     * Method should be called after firstRole and otherRoles are set.
-     */
     public static String getRolesLine(User user) {
-        StringBuilder roles = new StringBuilder(user.getFirstRole());
-        user.getOtherRoles().forEach(r -> roles.append(", ").append(r));
-        return roles.toString();
+        StringBuilder rolesLine = new StringBuilder();
+        user.getRoles().stream()
+                .sorted(Role.roleComparator)
+                .map(Role::getName)
+                .forEach(r -> rolesLine.append(r).append(", "));
+        return rolesLine.isEmpty()
+                ? "-"
+                : rolesLine.substring(0, rolesLine.length() - 2);
     }
 }

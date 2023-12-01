@@ -21,7 +21,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> user;
+    private Set<User> users;
 
     public Role(String name) {
         setName(name);
@@ -46,6 +46,11 @@ public class Role implements GrantedAuthority {
                     RolesType.allRolesNames.lastIndexOf(o2.getName());
         }
     };
+
+    @Override
+    public String toString() {
+        return "Role{" + "id=" + id + ", name='" + name + '}';
+    }
 
     @Override
     public boolean equals(Object o) {

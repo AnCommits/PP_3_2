@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,7 +25,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void saveUser(User user) {
         if (user != null) {
-            user.setRecordDateTime(new Date());
             userDao.saveUser(user);
         }
     }
@@ -55,7 +53,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void updateUser(User user) {
         if (user != null) {
-            user.setRecordDateTime(getUserById(user.getId()).getRecordDateTime());
             userDao.updateUser(user);
         }
     }
