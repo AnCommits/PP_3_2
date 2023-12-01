@@ -18,6 +18,15 @@ public class UserControllers {
         this.userService = userService;
     }
 
+    @GetMapping
+    public String showUser(ModelMap model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        model.addAttribute("user", user);
+        model.addAttribute("my_roles", UserUtils.getRolesLine(user));
+        model.addAttribute("my_email", user.getEmail());
+        return "/user/about-user";
+    }
+
 //    @GetMapping
 //    public String showUser(ModelMap model, Authentication authentication) {
 //        User loggedInUser = (User) authentication.getPrincipal();

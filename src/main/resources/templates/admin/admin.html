@@ -21,7 +21,7 @@
 </head>
 <body style="background-color: #e3f0ff">
 <div class="container-fluid">
-    <div th:replace="admin/fragments :: header"></div>
+    <div th:replace="admin/fragments :: admin_header"></div>
 
     <div class="row">
         <div th:replace="admin/fragments :: admin_admin_left_block"></div>
@@ -31,19 +31,18 @@
             <h1>Панель администратора</h1>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active disabled" href="#">Список сотрудников</a>
+                    <a class="nav-link active disabled" href="#">Список пользователей</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/new-user">Новый сотрудник</a>
+                    <a class="nav-link" href="/admin/new-user">Новый пользователь</a>
                 </li>
             </ul>
 
             <ul class="nav nav-tabs">
                 <li class="nav-item" style="font-size: large; color: black; width: 100%">
                     <a class="nav-link active disabled" href="#" style="float: left; font-weight: bolder">
-                        Все сотрудники</a>
-                    <a class="nav-link" href="#" style="float: left">Отдел сборки ТВ</a>
-                    <a class="nav-link" href="#" style="float: left">Отдел сборки телефонов</a>
+                        Все пользователи</a>
+                    <a class="nav-link" href="#" style="float: left">Сборочный цех</a>
                     <a class="nav-link" href="#" style="float: left">Ремонтный отдел</a>
                 </li>
             </ul>
