@@ -27,7 +27,6 @@
         <div th:replace="admin/fragments :: admin_admin_left_block"></div>
 
         <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
-
             <h1>Панель администратора</h1>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -37,16 +36,15 @@
                     <a class="nav-link" href="/admin/new-user">Новый пользователь</a>
                 </li>
             </ul>
-
-            <ul class="nav nav-tabs">
-                <li class="nav-item" style="font-size: large; color: black; width: 100%">
-                    <a class="nav-link active disabled" href="#" style="float: left; font-weight: bolder">
-                        Все пользователи</a>
-                    <a class="nav-link" href="#" style="float: left">Сборочный цех</a>
-                    <a class="nav-link" href="#" style="float: left">Ремонтный отдел</a>
-                </li>
-            </ul>
-
+            <div style="border-bottom: 1px solid #dadada">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" style="font-size: large; color: black; width: 100%">
+                        <a class="nav-link active disabled" href="#"
+                           style="float: left; font-weight: bolder; width: 100%; background-color: #f8f9fa">
+                            Пользователи</a>
+                    </li>
+                </ul>
+            </div>
             <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada;">
                 <table class="table table-striped">
                     <thead>
@@ -55,7 +53,7 @@
                         <th>Имя</th>
                         <th>Фамилия</th>
                         <th>Возраст</th>
-                        <th>Емэйл</th>
+                        <th>Е&#8288;&#8209;&#8288;мэйл</th>
                         <th style="min-width: 220px">Роли</th>
                         <th>Заблокирован</th>
                         <th>Редактировать</th>
@@ -64,7 +62,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="user : ${users}">
-                        <th style="font-weight: normal" th:text="${user.id}"></th>
+                        <td th:text="${user.id}"></td>
                         <td th:text="${user.firstName}"></td>
                         <td th:text="${user.lastName}"></td>
                         <td th:text="${user.age < 0} ? '' : ${user.age}"></td>
@@ -78,14 +76,13 @@
                             </details>
                         </td>
                         <td>
-                            <form th:action="'admin/change-ban/' + ${user.id}" th:method="put">
-                                <div class="custom-control custom-checkbox" th:switch="${user.isLocked()}">
-                                    <input th:case="true" type="checkbox" class="custom-control-input"
-                                           th:id="'locked_' + ${user.id}" checked>
-                                    <input th:case="false" type="checkbox" class="custom-control-input"
-                                           th:id="'locked_' + ${user.id}">
-                                    <label class="custom-control-label" th:for="'locked_' + ${user.id}"></label>
-                                </div>
+
+                            <form th:action="'admin/change-ban/' + ${user.id}" th:method="put"
+                                  th:switch="${user.isLocked()}">
+                                <input th:case="true" type="checkbox" class="checkbox" onclick="submit()"
+                                       style="height: 24px; width: 24px" checked>
+                                <input th:case="false" type="checkbox" class="checkbox" onclick="submit()"
+                                       style="height: 24px; width: 24px">
                             </form>
                         </td>
                         <td>

@@ -25,6 +25,6 @@ public class UserControllers {
         model.addAttribute("user", user);
         model.addAttribute("my_roles", UserUtils.getRolesLine(user));
         model.addAttribute("my_email", user.getEmail());
-        return "/user/about-user";
+        return "/user/user";
     }
 }

@@ -16,7 +16,7 @@
         <span th:each="user : ${users}">
                 <a class="nav-link" th:href="@{/admin/about-user/{id} (id = ${user.id})}"
                    th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
-                </span>
+        </span>
     </nav>
 </div>
 <!-------------------------------------------------------------------------------------------->
