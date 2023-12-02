@@ -2,12 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <!-------------------------------------------------------------------------------------------->
-<div th:fragment="user_about_user_left_block" class="col-2" style="background-color: white; padding: 18px 0">
-    <nav class="nav nav-pills flex-column">
-        <a class="nav-link active disabled" href="#"
-           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
-    </nav>
-</div>
+<nav th:fragment="user_about_user_left_block" class="nav nav-pills flex-column">
+    <a class="nav-link active disabled" href="#"
+       th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+</nav>
 <!-------------------------------------------------------------------------------------------->
 </body>
 </html>

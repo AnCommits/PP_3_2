@@ -10,15 +10,13 @@
     <a href="/logout" style="color: #969b9c">Logout</a>
 </div>
 <!-------------------------------------------------------------------------------------------->
-<div th:fragment="admin_admin_left_block" class="col-2" style="background-color: white; padding: 18px 0">
-    <nav class="nav nav-pills flex-column">
-        <a class="nav-link active disabled" href="#">Администратор</a>
-        <span th:each="user : ${users}">
+<nav th:fragment="admin_admin_left_block" class="nav nav-pills flex-column">
+    <a class="nav-link active disabled" href="#">Администратор</a>
+    <span th:each="user : ${users}">
                 <a class="nav-link" th:href="@{/admin/about-user/{id} (id = ${user.id})}"
                    th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
         </span>
-    </nav>
-</div>
+</nav>
 <!-------------------------------------------------------------------------------------------->
 <div th:fragment="admin_about_user_left_block" class="col-2" style="background-color: white; padding: 18px 0">
     <nav class="nav nav-pills flex-column">

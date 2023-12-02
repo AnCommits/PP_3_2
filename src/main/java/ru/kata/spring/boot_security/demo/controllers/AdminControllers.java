@@ -61,6 +61,14 @@ public class AdminControllers {
         return "admin/new-user";
     }
 
+//    @DeleteMapping("/delete-user/{id}")
+//    public String removeUser(@PathVariable long id, ModelMap model) {
+//        model.addAttribute("users", usersCached);
+//        model.addAttribute()
+////        userService.removeUserById(id);
+//        return "admin/delete";
+//    }
+
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute("user") User user) {
         String emailFromForm = user.getEmail();
@@ -163,9 +171,9 @@ public class AdminControllers {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/remove-user/{id}")
-    public String removeUser(@PathVariable long id) {
-        userService.removeUserById(id);
-        return "redirect:/admin";
-    }
+//    @DeleteMapping("/remove-user/{id}")
+//    public String removeUser(@PathVariable long id) {
+//        userService.removeUserById(id);
+//        return "redirect:/admin";
+//    }
 }
