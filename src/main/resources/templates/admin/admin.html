@@ -8,23 +8,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-    <title>Стрвница адиминистратора</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <title>Страница администратора</title>
 </head>
 <body style="background-color: white">
 <div class="container-fluid">
     <div th:replace="fragments :: header"></div>
 
     <div class="row">
-        <div class="col-2" style="background-color: white; padding: 18px 0">
+        <div class="col-2" style="padding: 18px 0">
             <nav th:replace="admin/fragments :: admin_admin_left_block"></nav>
         </div>
 
@@ -38,7 +29,7 @@
                     <a class="nav-link" href="/admin/new-user">Новый пользователь</a>
                 </li>
             </ul>
-            <div style="border-bottom: 1px solid #dadada">
+            <div class="border-bottom">
                 <ul class="nav nav-tabs">
                     <li class="nav-item" style="font-size: large; color: black; width: 100%">
                         <a class="nav-link active disabled" href="#"
@@ -56,7 +47,7 @@
                         <th>Фамилия</th>
                         <th>Возраст</th>
                         <th>Е&#8288;&#8209;&#8288;мэйл</th>
-                        <th style="min-width: 220px">Роли</th>
+                        <th style="min-width: 160px">Роли</th>
                         <th>Заблокирован</th>
                         <th>Редактировать</th>
                         <th>Удалить</th>
@@ -64,7 +55,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="user : ${users}">
-                        <td th:text="${user.id}"></td>
+                        <td th:id="'user_id_' + ${user.email}" th:text="${user.id}"></td>
                         <td th:text="${user.firstName}"></td>
                         <td th:text="${user.lastName}"></td>
                         <td th:text="${user.age < 0} ? '' : ${user.age}"></td>
@@ -78,8 +69,7 @@
                             </details>
                         </td>
                         <td>
-
-                            <form th:action="'admin/change-ban/' + ${user.id}" th:method="put"
+                            <form th:action="@{admin/change-ban/{id} (id = ${user.id})}" th:method="put"
                                   th:switch="${user.isLocked()}">
                                 <input th:case="true" type="checkbox" class="checkbox" onclick="submit()"
                                        style="height: 24px; width: 24px" checked>
@@ -88,10 +78,23 @@
                             </form>
                         </td>
                         <td>
-                            <a th:attr="href='/admin/show-edit-user?id=' + ${user.id}" class="btn btn-info">Редактировать</a>
+                            <button id="edit-user" type="button" class="btn btn-info"
+                                    data-toggle="modal" data-target="#userDialog"
+                                    th:data-id="${user.id}"
+                                    th:data-firstname="${user.firstName}"
+                                    th:data-lastname="${user.lastName}"
+                                    th:data-birthdate="${user.birthDateAsString}"
+                                    th:data-email="${user.email}">
+                                Редактировать
+                            </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger">Удалить</button>
+                            <button id="delete-user" type="button" class="btn btn-danger"
+                                    data-toggle="modal" data-target="#userDialog">
+                                <!--                                    th:data-id="${user.id}"-->
+                                <!--                                    th:data-firstname="${user.firstName}">-->
+                                Удалить
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -100,5 +103,138 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="userDialog" tabindex="-1" role="dialog" aria-labelledby="userDialogLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title " id="userDialogLabel">Редактировать пользователя</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-id" style="margin-bottom: 0">ID</label>
+                        <input type="text" class="form-control w-50" id="user-id" disabled
+                               style="margin: 0 auto; height: 2em">
+                    </div>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-firstname" style="margin-bottom: 0">Имя*</label>
+                        <input type="text" class="form-control w-50 input-sm" id="user-firstname"
+                               style="margin: 0 auto; height: 2em" required>
+                    </div>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-lastname" style="margin-bottom: 0">Фамилия*</label>
+                        <input type="text" class="form-control w-50" id="user-lastname"
+                               style="margin: 0 auto; height: 2em" required>
+                    </div>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-birthdate" style="margin-bottom: 0">Дата рождения</label>
+                        <input type="date" class="form-control w-50" id="user-birthdate"
+                               style="margin: 0 auto; height: 2em">
+                    </div>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-email" style="margin-bottom: 0">Е-мэйл*</label>
+                        <input type="text" class="form-control w-50" id="user-email"
+                               style="margin: 0 auto; height: 2em" required>
+                    </div>
+                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
+                        <label for="user-password" style="margin-bottom: 0">Пароль</label>
+                        <input type="password" class="form-control w-50" id="user-password"
+                               style="margin: 0 auto; height: 2em" minlength="2">
+                    </div>
+
+                    <div class="form-group" style="text-align: center; font-weight: bold">
+                        <label style="margin: 0">Роли(можно несколько)</label>
+                        <select class="form-control" id="roles" name="roles" multiple size="3">
+                                    <span th:each="role : ${aRoles}">
+                                    <option th:id="'role_' + ${role.name}" th:value="${role.name}"
+                                            th:text="${role.name}">
+                                    </option>
+                                    </span>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="save-user-button" type="button" class="btn btn-primary">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script>
+    $('#userDialog').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget)
+        const userId = button.data('id')
+        if (userId !== 0) {
+            document.getElementById('user-id').value = userId
+            document.getElementById('user-firstname').value = button.data('firstname')
+            document.getElementById('user-lastname').value = button.data('lastname')
+            document.getElementById('user-birthdate').value = button.data('birthdate')
+            document.getElementById('user-email').value = button.data('email')
+        }
+    })
+
+    $('#save-user-button').click(function () {
+        let modal = $('#userDialog')
+        let id = modal.find('#user-id').val()
+        let email = modal.find('#user-email').val()
+        let elementWithSuchEmail = document.getElementById('user_id_' + email);
+        if (elementWithSuchEmail !== null) {
+            if (id !== elementWithSuchEmail.textContent) {
+                alert(email + ' уже зарегистрирован. Используйте другой е-мэйл.')
+                return
+            }
+        }
+
+        let user = {
+            id : id,
+            // id: modal.find('#user-id').val(),
+            firstName: modal.find('#user-firstname').val(),
+            lastName: modal.find('#user-lastname').val(),
+            birthDate: modal.find('#user-birthdate').val(),
+            email: modal.find('#user-email').val(),
+            password: modal.find('#user-password').val(),
+            roles: $('select#roles').val()
+        };
+        // if (modal.find('#user-id').val()) {
+        //     user.id = modal.find('#user-id').val()
+        // }
+        $.ajax({
+            url: '/api/user/save',
+            type: 'POST',
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: () => {
+                location.reload()
+            },
+            error: (err) => {
+                alert(err);
+            }
+        })
+
+        modal.modal('hide');
+    });
+</script>
 </body>
 </html>

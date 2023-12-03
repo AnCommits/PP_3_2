@@ -2,12 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <!-------------------------------------------------------------------------------------------->
-<div th:fragment="header" class="navbar navbar-fixed-top"
-     style="background-color: #343a40; margin-left: -15px; margin-right: -15px">
-    <div style="float: left; color: white; font-size: larger; padding: 2px 4px">
+<div th:fragment="header" class="navbar bg-dark mx-n3">
+    <div class="text-white" style="font-size: larger; padding: 2px 4px">
         <b th:text="${my_email}"></b> with roles: <span th:text="${my_roles}"></span>
     </div>
-    <a href="/logout" style="color: #969b9c">Logout</a>
+    <a class="text-white-50" href="/logout">Logout</a>
 </div>
 <!-------------------------------------------------------------------------------------------->
 <table th:fragment="about_user" class="table table-striped">
@@ -18,7 +17,7 @@
         <th>Фамилия</th>
         <th>Возраст</th>
         <th>Емэйл</th>
-        <th>Роли</th>
+        <th style="width: 160px">Роли</th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +27,7 @@
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>
         <td th:text="${user.email}"></td>
-        <td style="width: 220px">
+        <td>
             <ul class="list-group" th:each="role : ${user.roles}">
                 <li class="list-group-item" style="padding: 0 4px "
                     th:text="${role.name}"></li>

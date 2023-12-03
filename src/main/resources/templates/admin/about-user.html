@@ -9,29 +9,20 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <title>Страница администратора</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
 </head>
 <body style="background-color: white">
 <div class="container-fluid">
     <div th:replace="fragments :: header"></div>
 
     <div class="row">
-        <div class="col-2" style="background-color: white; padding: 18px 0">
+        <div class="col-2" style="padding: 18px 0">
             <nav th:replace="admin/fragments :: admin_about_user_left_block"></nav>
         </div>
 
         <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
 
             <h1>Информация о пользователе</h1>
-            <div style="border-bottom: 1px solid #dadada">
+            <div class="border-bottom">
                 <ul class="nav nav-tabs">
                     <li class="nav-item" style="font-size: large; color: black; width: 100%">
                         <a class="nav-link active disabled" href="#"
@@ -44,37 +35,19 @@
             <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
 
                 <table th:replace="fragments :: about_user"></table>
-
-<!--                <table class="table table-striped">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>ID</th>-->
-<!--                        <th>Имя</th>-->
-<!--                        <th>Фамилия</th>-->
-<!--                        <th>Возраст</th>-->
-<!--                        <th>Емэйл</th>-->
-<!--                        <th>Роли</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr>-->
-<!--                        <td th:text="${user.id}"></td>-->
-<!--                        <td th:text="${user.firstName}"></td>-->
-<!--                        <td th:text="${user.lastName}"></td>-->
-<!--                        <td th:text="${user.age < 0} ? '-' : ${user.age}"></td>-->
-<!--                        <td th:text="${user.email}"></td>-->
-<!--                        <td style="width: 220px">-->
-<!--                            <ul class="list-group" th:each="role : ${user.roles}">-->
-<!--                                <li class="list-group-item" style="padding: 0 4px "-->
-<!--                                    th:text="${role.name}"></li>-->
-<!--                            </ul>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

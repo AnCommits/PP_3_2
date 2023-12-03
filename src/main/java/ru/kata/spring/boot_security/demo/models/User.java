@@ -39,6 +39,9 @@ public class User implements UserDetails {
     private Calendar birthDate;
 
     @Transient
+    private String birthDateAsString;
+
+    @Transient
     int age;
 
     @ManyToMany(cascade = {CascadeType.ALL})

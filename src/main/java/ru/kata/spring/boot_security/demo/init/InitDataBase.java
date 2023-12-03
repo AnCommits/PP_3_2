@@ -26,30 +26,19 @@ public class InitDataBase {
     @PostConstruct
     public void initUsers() {
         if (userService.countUsers() == 0) {
-            initAdmin();
-
+            initAdmin1();
             initHead();
-
-            initManufactureBoss();
-
-            initTvManufactureMaster();
-            initPhoneManufactureMaster();
+            initManufactureMaster();
             initRepairMaster();
 
-            initTvManufacturer1();
-            initTvManufacturer2();
-
-            initPhoneManufacturer1();
-            initPhoneManufacturer2();
-
+            initManufacturer1();
+            initManufacturer2();
             initRepairer1();
-            initRepairer2();
-
-            initTrainee();
+            initTrainee1();
         }
     }
 
-    public void initAdmin() {
+    public void initAdmin1() {
         Set<Role> roles = new LinkedHashSet<>();
         roles.add(new Role("ADMIN"));
         roles.add(new Role("USER"));
@@ -59,79 +48,22 @@ public class InitDataBase {
         userService.saveUser(user);
     }
 
-    public void initTrainee() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("USER"));
-        User user = new User("Антон", "Антонов", "a",
-                passwordEncoder.encode("a"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initRepairer1() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("REPAIRER"));
-        roles.add(new Role("USER"));
-        User user = new User("Борис", "Борисов", "b",
-                passwordEncoder.encode("b"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initRepairer2() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("REPAIRER"));
-        roles.add(new Role("USER"));
-        User user = new User("Вася", "Васильев", "v",
-                passwordEncoder.encode("v"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initTvManufacturer1() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("TV_MANUFACTURER"));
-        roles.add(new Role("USER"));
-        User user = new User("Григорий", "Григорьев", "g",
-                passwordEncoder.encode("g"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initTvManufacturer2() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("TV_MANUFACTURER"));
-        roles.add(new Role("USER"));
-        User user = new User("Дима", "Дмитриев", "d",
-                passwordEncoder.encode("d"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initPhoneManufacturer1() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("PHONE_MANUFACTURER"));
-        roles.add(new Role("USER"));
-        User user = new User("Егор", "Егоров", "e",
-                passwordEncoder.encode("e"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initPhoneManufacturer2() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("PHONE_MANUFACTURER"));
-        roles.add(new Role("USER"));
-        User user = new User("Зина", "Зиновьева", "z",
-                passwordEncoder.encode("z"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
-    public void initTvManufactureMaster() {
+    public void initHead() {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
-        roles.add(new Role("TV_MANUFACTURER"));
+        roles.add(new Role("MANUFACTURE"));
+        roles.add(new Role("REPAIR"));
+        roles.add(new Role("USER"));
+        User user = new User("Степан", "Степанов", "s",
+                passwordEncoder.encode("s"),
+                new GregorianCalendar(1991, Calendar.FEBRUARY, 12), roles, false);
+        userService.saveUser(user);
+    }
+
+    public void initManufactureMaster() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("MANUFACTURE"));
         roles.add(new Role("USER"));
         User user = new User("Кирилл", "Кириллов", "k",
                 passwordEncoder.encode("k"),
@@ -139,21 +71,10 @@ public class InitDataBase {
         userService.saveUser(user);
     }
 
-    public void initPhoneManufactureMaster() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("MASTER"));
-        roles.add(new Role("PHONE_MANUFACTURER"));
-        roles.add(new Role("USER"));
-        User user = new User("Миша", "Михайлов", "m",
-                passwordEncoder.encode("m"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
-        userService.saveUser(user);
-    }
-
     public void initRepairMaster() {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
-        roles.add(new Role("REPAIRER"));
+        roles.add(new Role("REPAIR"));
         roles.add(new Role("USER"));
         User user = new User("Петр", "Петров", "p",
                 passwordEncoder.encode("p"),
@@ -161,27 +82,41 @@ public class InitDataBase {
         userService.saveUser(user);
     }
 
-    public void initManufactureBoss() {
+    public void initManufacturer1() {
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("MASTER"));
-        roles.add(new Role("TV_MANUFACTURER"));
-        roles.add(new Role("PHONE_MANUFACTURER"));
+        roles.add(new Role("MANUFACTURE"));
         roles.add(new Role("USER"));
-        User user = new User("Рома", "Романов", "r",
-                passwordEncoder.encode("r"),
+        User user = new User("Григорий", "Григорьев", "g",
+                passwordEncoder.encode("g"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
-    public void initHead() {
+    public void initManufacturer2() {
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("MASTER"));
-        roles.add(new Role("TV_MANUFACTURER"));
-        roles.add(new Role("PHONE_MANUFACTURER"));
-        roles.add(new Role("REPAIRER"));
+        roles.add(new Role("MANUFACTURE"));
         roles.add(new Role("USER"));
-        User user = new User("Степан", "Степанов", "s",
-                passwordEncoder.encode("s"),
+        User user = new User("Дима", "Дмитриев", "d",
+                passwordEncoder.encode("d"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
+        userService.saveUser(user);
+    }
+
+    public void initRepairer1() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role("REPAIR"));
+        roles.add(new Role("USER"));
+        User user = new User("Борис", "Борисов", "b",
+                passwordEncoder.encode("b"),
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
+        userService.saveUser(user);
+    }
+
+    public void initTrainee1() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role("USER"));
+        User user = new User("Антон", "Антонов", "a",
+                passwordEncoder.encode("a"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }

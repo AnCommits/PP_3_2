@@ -11,9 +11,8 @@ import java.util.List;
 public enum RolesType {
     ADMIN,
     MASTER,
-    TV_MANUFACTURER,
-    PHONE_MANUFACTURER,
-    REPAIRER,
+    MANUFACTURE,
+    REPAIR,
     USER;
 
     public static final List<String> allRolesNames = Arrays.stream(RolesType.values()).map(Enum::name).toList();

@@ -34,6 +34,7 @@ public class AdminControllers {
         UserUtils.setUsersAgeAndRoles(usersCached);
         long myId = ((User) authentication.getPrincipal()).getId();
         adminCached = userService.getUserById(myId);
+        model.addAttribute("aRoles", UserUtils.allRoles());
         model.addAttribute("users", usersCached);
         model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
         model.addAttribute("my_email", adminCached.getEmail());
@@ -61,14 +62,6 @@ public class AdminControllers {
         return "admin/new-user";
     }
 
-//    @DeleteMapping("/delete-user/{id}")
-//    public String removeUser(@PathVariable long id, ModelMap model) {
-//        model.addAttribute("users", usersCached);
-//        model.addAttribute()
-////        userService.removeUserById(id);
-//        return "admin/delete";
-//    }
-
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute("user") User user) {
         String emailFromForm = user.getEmail();
@@ -78,6 +71,13 @@ public class AdminControllers {
             userService.saveUser(user);
         }
         return "redirect:/admin";
+    }
+
+    @GetMapping("/delete-user")
+//    @DeleteMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable long id) {
+//        userService.removeUserById(id);
+        return "/admin/delete-user";
     }
 
 //    @GetMapping

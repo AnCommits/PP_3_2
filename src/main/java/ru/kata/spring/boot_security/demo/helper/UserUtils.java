@@ -18,25 +18,29 @@ public class UserUtils {
     }
 
     public static void setUserAgeAndRoles(User user) {
-        setUserAge(user);
+        setUserAgeAndBirthDate(user);
         setUserFirstAndOtherRoles(user);
     }
 
-    public static void setAllAdditionalFields(User user) {
-        setUserAge(user);
-        setUserFirstAndOtherRoles(user);
-        setAdminField(user);
-    }
+//    public static void setAllAdditionalFields(User user) {
+//        setUserAgeAndBirthDate(user);
+//        setUserFirstAndOtherRoles(user);
+//        setAdminField(user);
+//    }
 
-    public static void setUserAge(User user) {
+    public static void setUserAgeAndBirthDate(User user) {
         int age;
+        String birthDateAsString;
         if (user.getBirthDate() == null) {
             age = -1;
+            birthDateAsString = "";
         } else {
             LocalDate localBirthDate = LocalDate.ofInstant(user.getBirthDate().toInstant(), ZoneId.systemDefault());
             age = Period.between(localBirthDate, LocalDate.now()).getYears();
+            birthDateAsString = localBirthDate.toString();
         }
         user.setAge(age);
+        user.setBirthDateAsString(birthDateAsString);
     }
 
     public static void setUserFirstAndOtherRoles(User user) {
