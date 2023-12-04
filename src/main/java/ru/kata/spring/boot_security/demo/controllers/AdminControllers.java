@@ -10,19 +10,24 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminControllers {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final UserUtils userUtils;
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     private List<User> usersCached;
     private User adminCached;
 
-    public AdminControllers(PasswordEncoder passwordEncoder, UserService userService) {
+    public AdminControllers(PasswordEncoder passwordEncoder, UserService userService, UserUtils userUtils) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.userUtils = userUtils;
     }
 
     @GetMapping
@@ -68,13 +73,25 @@ public class AdminControllers {
             long myId = ((User) authentication.getPrincipal()).getId();
             user.setParentAdminId(myId);
             userService.saveUser(user);
+        } else {
+            logger.warning("Method saveUser. Email exists.");
         }
         return "redirect:/admin";
     }
 
     @PutMapping("/change-ban/{id}")
-    public String changeUserBan(@PathVariable long id) {
+    public String changeUserBan(@PathVariable long id, Authentication authentication) {
+        User me = (User) authentication.getPrincipal();
+        long myId = me.getId();
+        if (id == myId) {
+            logger.warning("Method changeUserBan. An attempt of selflocking.");
+            return "redirect:/admin";
+        }
         User user = userService.getUserById(id);
+        if (userUtils.isAncestor(me, user)) {
+            logger.warning("Method changeUserBan. An attempt of locking an ancestor.");
+            return "redirect:/admin";
+        }
         user.setLocked(!user.isLocked());
         userService.updateUser(user);
         return "redirect:/admin";

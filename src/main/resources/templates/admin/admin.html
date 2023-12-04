@@ -205,18 +205,6 @@
         document.getElementById('user-locked').value = button.data('locked')
         document.getElementById('user-password-old').value = button.data('password')
 
-        const roles = button.data('roles')
-        const rolesNames = button.data('roles-names')
-        const allRoles = rolesNames.substring(1, rolesNames.length - 1).split(', ')
-        for (let i in allRoles) {
-            let el = document.getElementById('role_' + allRoles[i])
-            if (roles.includes(allRoles[i])) {
-                el.selected = true
-            } else {
-                el.removeAttribute('selected')
-            }
-        }
-
         if ((button.data('action') === 'update')) {
             document.getElementById('userDialogLabel').textContent = 'Редактировать пользователя'
             document.getElementById('delete-user-button').hidden = true
@@ -227,6 +215,19 @@
             document.getElementById('user-email').disabled = false
             document.getElementById('user-password-area').hidden = false
             document.getElementById('roles').disabled = false
+
+            const roles = button.data('roles')
+            const rolesNames = button.data('roles-names')
+            const allRoles = rolesNames.substring(1, rolesNames.length - 1).split(', ')
+            for (let i in allRoles) {
+                let el = document.getElementById('role_' + allRoles[i])
+                if (roles.includes(allRoles[i])) {
+                    el.selected = true
+                } else {
+                    el.removeAttribute('selected')
+                }
+            }
+
         } else {
             document.getElementById('userDialogLabel').textContent = 'Удалить пользователя'
             document.getElementById('delete-user-button').hidden = false

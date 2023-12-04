@@ -1,8 +1,10 @@
 package ru.kata.spring.boot_security.demo.helper;
 
+import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.constants.RolesType;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,7 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class UserUtils {
+    private final UserService userService;
+
+    public UserUtils(UserService userService) {
+        this.userService = userService;
+    }
 
     public static void setUsersAgeAndRoles(List<User> users) {
         users.forEach(UserUtils::setUserAgeAndRoles);
@@ -21,12 +29,6 @@ public class UserUtils {
         setUserAgeAndBirthDate(user);
         setUserFirstAndOtherRoles(user);
     }
-
-//    public static void setAllAdditionalFields(User user) {
-//        setUserAgeAndBirthDate(user);
-//        setUserFirstAndOtherRoles(user);
-//        setAdminField(user);
-//    }
 
     public static void setUserAgeAndBirthDate(User user) {
         int age;
@@ -69,5 +71,23 @@ public class UserUtils {
         return rolesLine.isEmpty()
                 ? "-"
                 : rolesLine.substring(0, rolesLine.length() - 2);
+    }
+
+    /**
+     * Returns true, if user2 or his descendant created user1
+     */
+    public boolean isAncestor(User user1, User user2) {
+        long parentAdminId1 = user1.getParentAdminId();
+        if (parentAdminId1 == 0) {
+            return false;
+        }
+        if (parentAdminId1 == user2.getId()) {
+            return true;
+        }
+        User user = userService.getUserById(parentAdminId1);
+        if (user == null) {
+            return false;
+        }
+        return isAncestor(user, user2);
     }
 }
