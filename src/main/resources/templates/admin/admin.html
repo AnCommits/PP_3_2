@@ -88,6 +88,8 @@
                                     th:data-password="${user.password}"
                                     th:data-birthdate="${user.birthDateAsString}"
                                     th:data-locked="${user.locked}"
+                                    th:data-roles="${user.roles}"
+                                    th:data-roles-names="${allRolesNames}"
                                     th:data-action="update">
                                 Редактировать
                             </button>
@@ -126,36 +128,33 @@
 
             <div class="modal-body">
                 <form>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
-                        <label for="user-id" style="margin-bottom: 0">ID</label>
-                        <input type="text" class="form-control w-50" id="user-id" disabled
-                               style="margin: 0 auto; height: 2em">
+                    <div class="form-group text-center font-weight-bold py-0 px-4">
+                        <label for="user-id" class="mb-0">ID</label>
+                        <input type="text" class="form-control form-control-sm w-50 my-0 mx-auto" id="user-id" disabled>
                     </div>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
-                        <label for="user-firstname" style="margin-bottom: 0">Имя*</label>
-                        <input type="text" class="form-control w-50 input-sm" id="user-firstname"
-                               style="margin: 0 auto; height: 2em" required>
+                    <div class="form-group text-center font-weight-bold py-0 px-4">
+                        <label for="user-firstname" class="mb-0">Имя*</label>
+                        <input type="text" class="form-control form-control-sm w-50 my-0 mx-auto" id="user-firstname"
+                               required>
                     </div>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
-                        <label for="user-lastname" style="margin-bottom: 0">Фамилия*</label>
-                        <input type="text" class="form-control w-50" id="user-lastname"
-                               style="margin: 0 auto; height: 2em" required>
+                    <div class="form-group text-center font-weight-bold py-0 px-4">
+                        <label for="user-lastname" class="mb-0">Фамилия*</label>
+                        <input type="text" class="form-control form-control-sm w-50 my-0 mx-auto" id="user-lastname"
+                               required>
                     </div>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
-                        <label for="user-birthdate" style="margin-bottom: 0">Дата рождения</label>
-                        <input type="date" class="form-control w-50" id="user-birthdate"
-                               style="margin: 0 auto; height: 2em">
+                    <div class="form-group text-center font-weight-bold py-0 px-4">
+                        <label for="user-birthdate" class="mb-0">Дата рождения</label>
+                        <input type="date" class="form-control form-control-sm w-50 my-0 mx-auto" id="user-birthdate">
                     </div>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px">
-                        <label for="user-email" style="margin-bottom: 0">Е-мэйл*</label>
-                        <input type="text" class="form-control w-50" id="user-email"
-                               style="margin: 0 auto; height: 2em" required>
+                    <div class="form-group text-center font-weight-bold py-0 px-4">
+                        <label for="user-email" class="mb-0">Е-мэйл*</label>
+                        <input type="email" class="form-control form-control-sm w-50 my-0 mx-auto" id="user-email"
+                               required>
                     </div>
-                    <div class="form-group text-center font-weight-bold" style="padding: 0 24px"
-                         id="user-password-area">
-                        <label for="user-password-new" style="margin-bottom: 0">Пароль</label>
-                        <input type="password" class="form-control w-50" id="user-password-new"
-                               style="margin: 0 auto; height: 2em" required minlength="2" maxlength="50">
+                    <div class="form-group text-center font-weight-bold py-0 px-4" id="user-password-area">
+                        <label for="user-password-new" class="mb-0">Пароль</label>
+                        <input type="password" class="form-control form-control-sm w-50 my-0 mx-auto"
+                               id="user-password-new" required minlength="2" maxlength="50">
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -163,8 +162,8 @@
                     </div>
                     <div class="d-flex justify-content-center">
                         <select class="form-control w-50" id="roles" name="roles" multiple size="5">
-                            <span th:each="role : ${aRoles}">
-                                <option th:id="'role_' + ${role.name}" th:value="${role.name}" th:text="${role.name}">
+                            <span th:each="role : ${allRolesNames}">
+                                <option th:id="'role_' + ${role}" th:value="${role}" th:text="${role}">
                                 </option>
                             </span>
                         </select>
@@ -198,16 +197,26 @@
 <script>
     $('#userDialog').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget)
-        const userId = button.data('id')
-        // if (userId !== 0) {
-        document.getElementById('user-id').value = userId
+        document.getElementById('user-id').value = button.data('id')
         document.getElementById('user-firstname').value = button.data('firstname')
         document.getElementById('user-lastname').value = button.data('lastname')
         document.getElementById('user-birthdate').value = button.data('birthdate')
         document.getElementById('user-email').value = button.data('email')
         document.getElementById('user-locked').value = button.data('locked')
         document.getElementById('user-password-old').value = button.data('password')
-        // }
+
+        const roles = button.data('roles')
+        const rolesNames = button.data('roles-names')
+        const allRoles = rolesNames.substring(1, rolesNames.length - 1).split(', ')
+        for (let i in allRoles) {
+            let el = document.getElementById('role_' + allRoles[i])
+            if (roles.includes(allRoles[i])) {
+                el.selected = true
+            } else {
+                el.removeAttribute('selected')
+            }
+        }
+
         if ((button.data('action') === 'update')) {
             document.getElementById('userDialogLabel').textContent = 'Редактировать пользователя'
             document.getElementById('delete-user-button').hidden = true

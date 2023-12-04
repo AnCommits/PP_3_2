@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-group input-group-sm">
                                 <label for="email" class="m-0">Электронная почта*</label>
-                                <input type="text" class="form-control" id="email" placeholder="Электронная почта"
+                                <input type="email" class="form-control" id="email" placeholder="Электронная почта"
                                        required th:field="*{email}">
                             </div>
                             <div class="form-group input-group-sm">
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label for="roles" class="m-0">Роли(можно несколько)</label>
                                 <select class="form-control" id="roles" name="roles" multiple size="5">
-                                    <span th:each="role : ${aRoles}">
+                                    <span th:each="role : ${allRoles}">
                                     <option th:value="${role.name}" th:text="${role.name}" th:field="*{roles}"></option>
                                     </span>
                                 </select>

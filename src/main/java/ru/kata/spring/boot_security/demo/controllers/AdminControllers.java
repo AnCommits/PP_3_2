@@ -31,7 +31,7 @@ public class AdminControllers {
         UserUtils.setUsersAgeAndRoles(usersCached);
         long myId = ((User) authentication.getPrincipal()).getId();
         adminCached = userService.getUserById(myId);
-        model.addAttribute("aRoles", UserUtils.allRoles());
+        model.addAttribute("allRolesNames", UserUtils.allRolesNames());
         model.addAttribute("users", usersCached);
         model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
         model.addAttribute("my_email", adminCached.getEmail());
@@ -52,7 +52,7 @@ public class AdminControllers {
     @GetMapping("/new-user")
     public String newUser(ModelMap model) {
         model.addAttribute("users", usersCached);
-        model.addAttribute("aRoles", UserUtils.allRoles());
+        model.addAttribute("allRoles", UserUtils.allRoles());
         model.addAttribute("user", new User());
         model.addAttribute("my_roles", UserUtils.getRolesLine(adminCached));
         model.addAttribute("my_email", adminCached.getEmail());
