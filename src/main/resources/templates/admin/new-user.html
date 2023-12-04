@@ -66,7 +66,7 @@
                             <div class="form-group input-group-sm">
                                 <label for="password" class="m-0">Пароль*</label>
                                 <input type="password" class="form-control" id="password" placeholder="Пароль"
-                                       required th:field="*{password}">
+                                       required minlength="2" maxlength="50" th:field="*{password}">
                             </div>
                             <div class="form-group">
                                 <label for="roles" class="m-0">Роли(можно несколько)</label>

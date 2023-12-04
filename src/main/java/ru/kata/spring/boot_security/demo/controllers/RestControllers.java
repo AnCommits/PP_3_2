@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -8,10 +9,11 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @RestController
 @RequestMapping("/api/user")
 public class RestControllers {
-
+    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
-    public RestControllers(UserService userService) {
+    public RestControllers(PasswordEncoder passwordEncoder, UserService userService) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 
@@ -28,6 +30,9 @@ public class RestControllers {
     public void updateUser(@RequestBody User user, Authentication authentication) {
         long myId = ((User) authentication.getPrincipal()).getId();
         user.setParentAdminId(myId);
+        if ((user.getPassword().length()) < 50) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userService.updateUser(user);
     }
 

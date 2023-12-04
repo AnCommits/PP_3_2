@@ -19,9 +19,6 @@ public class AdminControllers {
 
     private List<User> usersCached;
     private User adminCached;
-//    private User userRepeatEdit;
-//    private String pw;
-//    private StringBuilder message;
 
     public AdminControllers(PasswordEncoder passwordEncoder, UserService userService) {
         this.passwordEncoder = passwordEncoder;
