@@ -74,7 +74,7 @@ public class UserUtils {
     }
 
     /**
-     * Returns true, if user2 or his descendant created user1
+     * Returns true, if user2 or his creator created user1
      */
     public boolean isAncestor(User user1, User user2) {
         long parentAdminId1 = user1.getParentAdminId();
