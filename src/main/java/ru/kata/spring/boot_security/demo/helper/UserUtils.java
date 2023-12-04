@@ -52,10 +52,6 @@ public class UserUtils {
                 : roles.stream().skip(1).map(Role::getName).toList());
     }
 
-//    public static void setAdminField(User user) {
-//        user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
-//    }
-
     public static List<Role> allRoles() {
         return Arrays.stream(RolesType.values()).map(r -> new Role(r.name())).toList();
     }
@@ -63,14 +59,6 @@ public class UserUtils {
     public static List<String> allRolesNames() {
         return Arrays.stream(RolesType.values()).map(Enum::name).toList();
     }
-
-    // todo delete
-
-//    public static List<Role> allRolesWithoutAdmin() {
-//        return Arrays.stream(RolesType.values())
-//                .filter(r -> !r.name().equals("ADMIN"))
-//                .map(r -> new Role(r.name())).toList();
-//    }
 
     public static String getRolesLine(User user) {
         StringBuilder rolesLine = new StringBuilder();

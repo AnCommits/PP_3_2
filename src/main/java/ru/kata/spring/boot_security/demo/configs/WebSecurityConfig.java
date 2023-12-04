@@ -22,21 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
         this.passwordEncoder = passwordEncoder;
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        final String boss = """
-                hasAuthority('MASTER')
-                and hasAuthority('TV_MANUFACTURER')
-                and hasAuthority('PHONE_MANUFACTURER')
-                and hasAuthority('REPAIRER')""";
-        final String manufactureMaster = """
-                hasAuthority('MASTER')
-                and hasAuthority('TV_MANUFACTURER')
-                and hasAuthority('PHONE_MANUFACTURER')""";
-
         http
                 .csrf().disable()
                 .authorizeRequests()

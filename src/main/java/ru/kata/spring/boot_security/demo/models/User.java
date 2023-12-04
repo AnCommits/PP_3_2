@@ -60,11 +60,6 @@ public class User implements UserDetails {
 
     private long parentAdminId;
 
-    // todo delete
-
-//    @Transient
-//    private boolean admin;
-
     public User(String firstName, String lastName, String email, String password,
                 Calendar birthDate, Set<Role> roles, boolean locked) {
         this.firstName = firstName;
