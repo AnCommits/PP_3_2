@@ -11,18 +11,17 @@
     <title>Страница администратора</title>
 </head>
 <body>
-<!--<body style="background-color: white">-->
 <div class="container-fluid">
-
     <div th:replace="fragments :: header"></div>
+
     <div class="row">
-        <div class="col-2" style="padding: 18px 0">
+        <div class="col-2 pt-3 px-0">
             <nav th:replace="admin/fragments :: admin_admin_left_block"></nav>
         </div>
 
-        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
+        <div class="col-10 bg-light py-3 px-4" style="height: 100vh">
             <h1>Панель администратора</h1>
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs pt-2">
                 <li class="nav-item">
                     <a class="nav-link" href="/admin">Список пользователей</a>
                 </li>
@@ -32,46 +31,46 @@
             </ul>
 
             <div class="border-bottom">
-                <ul class="nav nav-tabs font-weight-bold ">
-                    <li class="nav-item" style="font-size: large; color: black; width: 100%">
-                        <a class="nav-link active disabled bg-light" href="#">Зарегистрировать пользователя</a>
+                <ul class="nav nav-tabs font-weight-bold">
+                    <li class="nav-item text-dark w-100">
+                        <a class="nav-link active disabled bg-light" href="#">
+                            <h5>Зарегистрировать пользователя</h5>
+                        </a>
                     </li>
                 </ul>
             </div>
 
-            <div class="border-bottom" style="background-color: white; padding: 16px 20px">
-                <!--                <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">-->
-                <div style="width: 300px; margin: auto">
+            <div class="border-bottom bg-white py-3">
+                <div class="m-auto" style="width: 300px">
                     <form action="/admin/save-user" th:object="${user}" method="post">
                         <div class="text-center font-weight-bold">
-                            <!--                            <div style="text-align: center; font-weight: bold; font-size: smaller">-->
                             <div class="form-group input-group-sm">
-                                <label for="firstNameInput" style="margin: 0">Имя*</label>
+                                <label for="firstNameInput" class="m-0">Имя*</label>
                                 <input type="text" class="form-control" id="firstNameInput" placeholder="Имя"
                                        required th:field="*{firstName}">
                             </div>
-                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
-                                <label for="lastNameInput" style="margin: 0">Фамилия*</label>
+                            <div class="form-group input-group-sm">
+                                <label for="lastNameInput" class="m-0">Фамилия*</label>
                                 <input type="text" class="form-control" id="lastNameInput" placeholder="Фамилия"
                                        required th:field="*{lastName}">
                             </div>
-                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
-                                <label for="birthDate" style="margin: 0">Дата рождения</label>
+                            <div class="form-group input-group-sm">
+                                <label for="birthDate" class="m-0">Дата рождения</label>
                                 <input type="date" class="form-control" id="birthDate" th:field="*{birthDate}">
                             </div>
-                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
-                                <label for="email" style="margin: 0">Электронная почта*</label>
+                            <div class="form-group input-group-sm">
+                                <label for="email" class="m-0">Электронная почта*</label>
                                 <input type="text" class="form-control" id="email" placeholder="Электронная почта"
                                        required th:field="*{email}">
                             </div>
-                            <div class="form-group input-group-sm" style="text-align: center; font-weight: bold">
-                                <label for="password" style="margin: 0">Пароль*</label>
+                            <div class="form-group input-group-sm">
+                                <label for="password" class="m-0">Пароль*</label>
                                 <input type="password" class="form-control" id="password" placeholder="Пароль"
                                        required th:field="*{password}">
                             </div>
-                            <div class="form-group" style="text-align: center; font-weight: bold">
-                                <label for="roles" style="margin: 0">Роли(можно несколько)</label>
-                                <select class="form-control" id="roles" name="roles" multiple size="3">
+                            <div class="form-group">
+                                <label for="roles" class="m-0">Роли(можно несколько)</label>
+                                <select class="form-control" id="roles" name="roles" multiple size="5">
                                     <span th:each="role : ${aRoles}">
                                     <option th:value="${role.name}" th:text="${role.name}" th:field="*{roles}"></option>
                                     </span>

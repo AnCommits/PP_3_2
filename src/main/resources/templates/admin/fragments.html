@@ -2,14 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <!-------------------------------------------------------------------------------------------->
-<div th:fragment="admin_header" class="navbar navbar-fixed-top"
-     style="background-color: #343a40; margin-left: -15px; margin-right: -15px">
-    <div style="float: left; color: white; font-size: larger; padding: 2px 4px">
-        <b th:text="${admin_email}"></b> with roles: <span th:text="${admin_roles}"></span>
-    </div>
-    <a href="/logout" style="color: #969b9c">Logout</a>
-</div>
-<!-------------------------------------------------------------------------------------------->
 <nav th:fragment="admin_admin_left_block" class="nav nav-pills flex-column bg-white">
     <a class="nav-link active disabled" href="#">Администратор</a>
     <span th:each="user : ${users}">

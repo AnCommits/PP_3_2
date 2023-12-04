@@ -15,23 +15,25 @@
     <div th:replace="fragments :: header"></div>
 
     <div class="row">
-        <div class="col-2" style="background-color: white; padding: 18px 0">
-            <nav th:replace="user/fragments :: user_about_user_left_block"></nav>
+        <div class="col-2 bg-white pt-3 px-0">
+            <nav class="nav nav-pills flex-column">
+                <a class="nav-link active disabled" href="#"
+                   th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+            </nav>
         </div>
 
-        <div class="col-10" style="padding: 12px 28px; background-color: #f8f9fa; height: 100vh">
+        <div class="col-10 bg-light" style="padding: 12px 28px; height: 100vh">
             <h1>Страница пользователя</h1>
             <div style="border-bottom: 1px solid #dadada">
                 <ul class="nav nav-tabs">
-                    <li class="nav-item" style="font-size: large; color: black; width: 100%">
-                        <a class="nav-link active disabled" href="#"
-                           style="float: left; font-weight: bolder; width: 100%; background-color: #f8f9fa">
+                    <li class="nav-item w-100 text-dark lead">
+                        <a class="nav-link active disabled bg-light w-100 font-weight-bold float-left" href="#">
                             О пользователе</a>
                     </li>
                 </ul>
             </div>
 
-            <div style="background-color: white; padding: 16px 20px; border: 1px solid #dadada">
+            <div class="bg-white py-3 px-4 border">
                 <table th:replace="fragments :: about_user"></table>
             </div>
 
