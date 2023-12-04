@@ -1,18 +1,17 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserResources {
+public class RestControllers {
 
     private final UserService userService;
 
-    @Autowired
-    public UserResources(UserService userService) {
+    public RestControllers(UserService userService) {
         this.userService = userService;
     }
 
@@ -25,9 +24,15 @@ public class UserResources {
         throw new RuntimeException("User with " + id + " not found");
     }
 
-    @PostMapping("/save")
-    public void saveUser(@RequestBody User user) {
-        System.out.println("saveUser " + user);
-//        return userService.save(user);
+    @PutMapping("/update")
+    public void updateUser(@RequestBody User user, Authentication authentication) {
+        long myId = ((User) authentication.getPrincipal()).getId();
+        user.setParentAdminId(myId);
+        userService.updateUser(user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable long id) {
+        userService.removeUserById(id);
     }
 }

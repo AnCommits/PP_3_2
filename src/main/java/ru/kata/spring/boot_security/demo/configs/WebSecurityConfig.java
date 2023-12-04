@@ -41,26 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
-
-                .antMatchers("/headship/**").access(boss)
-
-                .antMatchers("/manufacture/master/**").access(manufactureMaster)
-
-                .antMatchers("/manufacture/tvs/master/**")
-                    .access("hasAuthority('TV_MANUFACTURER') and hasAuthority('MASTER')")
-                .antMatchers("/manufacture/tvs/**").hasAuthority("TV_MANUFACTURER")
-
-                .antMatchers("/manufacture/phones/master/**")
-                    .access("hasAuthority('PHONE_MANUFACTURER') and hasAuthority('MASTER')")
-                .antMatchers("/manufacture/phones/**").hasAuthority("PHONE_MANUFACTURER")
-
-                .antMatchers("manufacture/**").hasAnyAuthority("TV_MANUFACTURER", "PHONE_MANUFACTURER")
-
-                .antMatchers("/repair/master/**")
-                    .access("hasAuthority('REPAIRER') and hasAuthority('MASTER')")
-                .antMatchers("/repair/**").hasAuthority("REPAIRER")
-
                 .antMatchers("/**").permitAll();
         http
                 .formLogin().loginPage("/login").permitAll()
