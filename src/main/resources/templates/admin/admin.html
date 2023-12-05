@@ -274,10 +274,12 @@
             type: 'put',
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            complete: function () {
+                modal.modal('hide')
+                location.reload()
+            }
         })
-        modal.modal('hide')
-        location.reload()
     });
 
     $('#delete-user-button').click(function () {
