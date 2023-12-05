@@ -288,10 +288,12 @@
 
         $.ajax({
             url: '/api/user/delete/' + id,
-            type: 'delete'
+            type: 'delete',
+            complete: function () {
+                modal.modal('hide')
+                location.reload()
+            }
         })
-        modal.modal('hide')
-        location.reload()
     });
 </script>
 </body>

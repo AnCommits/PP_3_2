@@ -84,12 +84,12 @@ public class AdminControllers {
         User me = (User) authentication.getPrincipal();
         long myId = me.getId();
         if (id == myId) {
-            logger.warning("Method changeUserBan. An attempt of selflocking.");
+            logger.warning("Method changeUserBan. An attempt of self-locking.");
             return "redirect:/admin";
         }
         User user = userService.getUserById(id);
         if (userUtils.isAncestor(me, user)) {
-            logger.warning("Method changeUserBan. An attempt of locking an ancestor.");
+            logger.warning("Method changeUserBan. An attempt of (un)locking a creator.");
             return "redirect:/admin";
         }
         user.setLocked(!user.isLocked());
